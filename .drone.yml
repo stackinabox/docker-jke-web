@@ -3,31 +3,31 @@ pipeline:
       image: plugins/docker
       environment:
         - DOCKER_LAUNCH_DEBUG=true
-      repo: 192.168.27.100:5555/stackinabox/jke-web
+      repo: 192.168.27.100:5555/jke/web
       registry: 192.168.27.100:5555
       insecure: true
       tags: 
-        - ${DRONE_BRANCH}
-        - ${DRONE_BUILD_NUMBER}
-        - ${DRONE_BRANCH}-latest
+        - dev
+        - dev-${DRONE_BUILD_NUMBER}
+        - ${DRONE_BRANCH}-${DRONE_BUILD_NUMBER}
       force_tag: true
       when:
         event: [push, pull_request, tag]
 
-  prod:
-      image: plugins/docker
-      environment:
-        - DOCKER_LAUNCH_DEBUG=true
-      repo: stackinabox/jke-web
-      registry: https://index.docker.io/v1/
-      email: 'tim.pouyer@gmail.com'
-      username: 'tpouyer'
-      password: '%your-password%'
-      tags: 
-        - ${DRONE_BRANCH}
-        - ${DRONE_BUILD_NUMBER}
-        - latest
-      force_tag: true
-      when:
-        branch: master
-        event: [push, pull_request, tag]
+#  prod:
+#      image: plugins/docker
+#      environment:
+#        - DOCKER_LAUNCH_DEBUG=true
+#      repo: stackinabox/jke-web
+#      registry: https://index.docker.io/v1/
+#      email: 'tim.pouyer@gmail.com'
+#      username: 'tpouyer'
+#      password: '%your-password%'
+#      tags: 
+#        - ${DRONE_BRANCH}
+#        - ${DRONE_BUILD_NUMBER}
+#        - latest
+#      force_tag: true
+#      when:
+#        branch: master
+#        event: [push, pull_request, tag]
